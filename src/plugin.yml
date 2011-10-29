@@ -1,0 +1,22 @@
+name: FalconPunch
+main: kjhf.falconpunch.FalconPunch
+version: 0.08
+description: Falcon ... PAUNCH!
+author: kjhf
+website: forums.bukkit.org/threads/.34187/
+dev-url: http://dev.bukkit.org/server-mods/falconpunch/
+commands:
+  fp:
+    description: Reloads FalconPunch
+    aliases: falconpunch
+permissions:
+ falconpunch.*:
+   description: Gives player ability to FalconPunch. NOT immunity.
+   children:
+     falconpunch.punch: true
+ falconpunch.immune:
+   description: Player becomes immune to being Falcon Punched.
+   default: false
+ falconpunch.punch:
+   description: Allows player to Falcon Punch.
+   default: op
