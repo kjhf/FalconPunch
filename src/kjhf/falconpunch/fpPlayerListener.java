@@ -2,7 +2,9 @@ package kjhf.falconpunch;
 import java.util.Random;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerListener;
@@ -22,6 +24,19 @@ public class fpPlayerListener extends PlayerListener{
         }
         
         Entity targetEntity = event.getRightClicked();
+        
+
+        if (targetEntity instanceof Vehicle) {
+            if (targetEntity.isEmpty()) {
+                if (targetEntity instanceof Pig) {
+                    if (((Pig)targetEntity).hasSaddle()) {
+                        return; // The target is a pig with a saddle and no passenger. Puncher might want to ride the pig.
+                    }
+                } else {
+                    return; // The boat/minecart/vehicle is empty, the puncher might want to get inside it?
+                }
+            }
+        }
 
         if (targetEntity instanceof Wolf) {
             Wolf wolf = (Wolf)targetEntity;
