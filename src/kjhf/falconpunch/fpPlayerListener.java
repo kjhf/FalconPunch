@@ -25,6 +25,19 @@ public class fpPlayerListener extends PlayerListener {
         }
 
         Entity targetEntity = event.getRightClicked();
+        
+
+        if (targetEntity instanceof Vehicle) {
+            if (targetEntity.isEmpty()) {
+                if (targetEntity instanceof Pig) {
+                    if (((Pig)targetEntity).hasSaddle()) {
+                        return; // The target is a pig with a saddle and no passenger. Puncher might want to ride the pig.
+                    }
+                } else {
+                    return; // The boat/minecart/vehicle is empty, the puncher might want to get inside it?
+                }
+            }
+        }
 
         if (targetEntity instanceof Player && !FalconPunch.AllowPVP) {
             return;
