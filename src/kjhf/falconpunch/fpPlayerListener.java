@@ -14,6 +14,13 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.util.Vector;
 
 public class fpPlayerListener implements Listener {
+    
+    private FalconPunch plugin;
+    
+    public fpPlayerListener(FalconPunch plugin){
+        this.plugin=plugin;
+    }
+        
     @EventHandler
     public void onPlayerInteractEntity (PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
@@ -21,17 +28,17 @@ public class fpPlayerListener implements Listener {
             return;
         }
 
-        if (!player.hasPermission("falconpunch.punch")) {
+        if (!player.hasPermission("plugin.punch")) {
             return;
         }
 
         Entity targetEntity = event.getRightClicked();
         
-        if (targetEntity instanceof Player && !FalconPunch.AllowPVP) {
+        if (targetEntity instanceof Player && !plugin.AllowPVP) {
             return;
         }
 
-        if (!(targetEntity instanceof Player) && FalconPunch.OnlyPVP) {
+        if (!(targetEntity instanceof Player) && plugin.OnlyPVP) {
             return;
         }
 
@@ -61,7 +68,7 @@ public class fpPlayerListener implements Listener {
 
         if (targetEntity instanceof Player) {
             Player targetplayer = (targetEntity instanceof Player) ? (Player) targetEntity : null;
-            if (targetplayer!=null && targetplayer.hasPermission("falconpunch.immune") && !FalconPunch.NoImmunity) {
+            if (targetplayer!=null && targetplayer.hasPermission("plugin.immune") && !plugin.NoImmunity) {
                 player.sendMessage(ChatColor.GOLD + "[FalconPunch] " + ChatColor.RED + "That person cannot be Falcon Punched. They have immune permission.");
                 return;
             }
@@ -70,28 +77,28 @@ public class fpPlayerListener implements Listener {
         Random random = new Random();
         int i = random.nextInt(99) + 1;
 
-        if (i <= FalconPunch.FailChance) {
+        if (i <= plugin.FailChance) {
             // The punch failed. Let's decide what we're going to do.
 
-            if ((FalconPunch.FailNothingChance + FalconPunch.FailFireChance + FalconPunch.FailLightningChance) <= 0) {
-                FalconPunch.logger.warning("[FalconPunch] Logic error. Please check fail probability in config for negative chances. Defaulting to no side-effect.");
+            if ((plugin.FailNothingChance + plugin.FailFireChance + plugin.FailLightningChance) <= 0) {
+                plugin.getLogger().warning("Logic error. Please check fail probability in config for negative chances. Defaulting to no side-effect.");
                 player.sendMessage(ChatColor.DARK_AQUA + "FALCON... Fail?!");
                 return;
             }
 
             random = new Random();
-            i = random.nextInt(FalconPunch.FailNothingChance + FalconPunch.FailFireChance + FalconPunch.FailLightningChance) + 1;
-            if (0 < i && i <= FalconPunch.FailNothingChance) {
+            i = random.nextInt(plugin.FailNothingChance + plugin.FailFireChance + plugin.FailLightningChance) + 1;
+            if (0 < i && i <= plugin.FailNothingChance) {
                 // Show the Fail nothing message.
                 player.sendMessage(ChatColor.DARK_AQUA + "FALCON... Fail?!");
                 return;
-            } else if (FalconPunch.FailNothingChance < i && i <= (FalconPunch.FailNothingChance + FalconPunch.FailFireChance)) {
+            } else if (plugin.FailNothingChance < i && i <= (plugin.FailNothingChance + plugin.FailFireChance)) {
                 // Show the Fail fire message.
                 player.setFireTicks(200);
                 player.sendMessage(ChatColor.DARK_AQUA + "FALCON... Fail? [Burn Hit! Oh Noes!]");
                 return;
 
-            } else if ((FalconPunch.FailNothingChance + FalconPunch.FailFireChance) < i && i <= (FalconPunch.FailNothingChance + FalconPunch.FailFireChance + FalconPunch.FailLightningChance)) {
+            } else if ((plugin.FailNothingChance + plugin.FailFireChance) < i && i <= (plugin.FailNothingChance + plugin.FailFireChance + plugin.FailLightningChance)) {
                 // Show the Fail lightning message.
                 player.getWorld().strikeLightningEffect(player.getLocation());
                 if (!player.getGameMode().equals(GameMode.CREATIVE)) {
@@ -101,19 +108,19 @@ public class fpPlayerListener implements Listener {
                 return;
             } else {
                 // Logic error, show the Fail nothing message.
-                FalconPunch.logger.warning("[FalconPunch] Logic error. Please check fail probability config. Defaulting to no side-effect.");
-                FalconPunch.logger.warning("[FalconPunch] Generated num: " + i + ". FailNothingChance: " + FalconPunch.FailNothingChance + ". FailFireChance: " + FalconPunch.FailFireChance + ". FailLightningChance: " + FalconPunch.FailLightningChance);
+                plugin.getLogger().warning("Logic error. Please check fail probability config. Defaulting to no side-effect.");
+                plugin.getLogger().warning("Generated num: " + i + ". FailNothingChance: " + plugin.FailNothingChance + ". FailFireChance: " + plugin.FailFireChance + ". FailLightningChance: " + plugin.FailLightningChance);
                 player.sendMessage(ChatColor.DARK_AQUA + "FALCON... Fail?!");
                 return;
             }
         }
 
         double crit = 2.0;
-        if (!FalconPunch.UseContinuousSystem) {
-            if (FalconPunch.CriticalsChance > 0) {
+        if (!plugin.UseContinuousSystem) {
+            if (plugin.CriticalsChance > 0) {
                 random = new Random();
                 i = random.nextInt(99) + 1;
-                if (FalconPunch.CriticalsChance >= i) {
+                if (plugin.CriticalsChance >= i) {
                     crit = 4;
                 }
             }
@@ -125,10 +132,10 @@ public class fpPlayerListener implements Listener {
 
         boolean burncrit = false;
 
-        if (FalconPunch.BurnChance > 0) {
+        if (plugin.BurnChance > 0) {
             random = new Random();
             i = random.nextInt(99) + 1;
-            if (i <= FalconPunch.BurnChance) {
+            if (i <= plugin.BurnChance) {
                 burncrit = true;
                 targetEntity.setFireTicks(200);
             }
@@ -150,7 +157,7 @@ public class fpPlayerListener implements Listener {
         targetEntity.setVelocity(velocity);
 
         String message = ChatColor.DARK_AQUA + "FALCON... PAUNCH! ";
-        if (!FalconPunch.UseContinuousSystem) {
+        if (!plugin.UseContinuousSystem) {
             if (burncrit) {
                 if (crit == 4) {
                     message += "[" + ChatColor.RED + "Burn " + ChatColor.DARK_AQUA + "+" + ChatColor.RED + " Critical Hit! " + ChatColor.DARK_AQUA + "]";

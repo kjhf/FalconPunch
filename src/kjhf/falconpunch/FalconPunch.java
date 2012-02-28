@@ -5,61 +5,48 @@ import org.bukkit.plugin.java.*;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import java.io.File;
-import java.util.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.util.config.Configuration;
 
 public class FalconPunch extends JavaPlugin {
-    static FalconPunch fp;
-    static final Logger logger = Logger.getLogger("FalconPunch");
-    static String Version;
     
-    static boolean permissionBukkit = false;
+    final String dataFolder = "plugins/FalconPunch/";
+    final File configFile = new File(dataFolder + "config.yml");
     
-    static final String dataFolder = "plugins/FalconPunch/";
-    static final File configFile = new File(dataFolder + "config.yml");
+    boolean AllowPVP = true;
+    boolean OnlyPVP = false;
+    boolean NoImmunity = false;
     
-    static boolean AllowPVP = true;
-    static boolean OnlyPVP = false;
-    static boolean NoImmunity = false;
+    boolean UseContinuousSystem = true;
     
-    static boolean UseContinuousSystem = true;
+    int CriticalsChance = 1;
+    int BurnChance = 1;
     
-    static int CriticalsChance = 1;
-    static int BurnChance = 1;
-    
-    static int FailChance = 1;
-    static int FailNothingChance = 1;
-    static int FailFireChance = 1;
-    static int FailLightningChance = 1;
+    int FailChance = 1;
+    int FailNothingChance = 1;
+    int FailFireChance = 1;
+    int FailLightningChance = 1;
 
     @Override
     public void onDisable() {
-        logger.info("[FalconPunch] Version " + Version + " disabled.");
+        this.getLogger().info("Version " + this.getDescription().getVersion() + " disabled.");
     }
 
     @Override
     public void onEnable() {
-        fp = this;
-        Version = this.getDescription().getVersion();
         loadConfigs();
-        
-        PluginManager pm = getServer().getPluginManager();   
-        pm.registerEvents(new fpPlayerListener(), this);
-            
-        logger.info("[FalconPunch] Version " + Version + " is enabled!");
+        this.getServer().getPluginManager().registerEvents(new fpPlayerListener(this), this);
+        this.getLogger().info("Version " + this.getDescription().getVersion() + " is enabled!");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if ((command.getName().equalsIgnoreCase("fp")) || (command.getName().equalsIgnoreCase("falconpunch"))) {
-            Version = this.getDescription().getVersion();
             loadConfigs();
-            sender.sendMessage("[FalconPunch] Version " + Version + " reloaded.");
+            sender.sendMessage("[FalconPunch] Version " + this.getDescription().getVersion() + " reloaded.");
             return true;
         } else {
             return false;
@@ -76,7 +63,7 @@ public class FalconPunch extends JavaPlugin {
             config = new Configuration(configFile);
             config.load();
         } catch (Exception e) {
-            logger.warning("[FalconPunch] Could not load config.yml.");
+            this.getLogger().warning("Could not load config.yml.");
         }
         if (config != null) {
             String Header[] = new String[] {
@@ -113,7 +100,7 @@ public class FalconPunch extends JavaPlugin {
             try {
                 config.save();
             } catch (Exception ex) {
-                logger.warning("[FalconPunch] Could not write to config.");
+                this.getLogger().warning("Could not write to config.");
             }
         }
     }
