@@ -1,15 +1,11 @@
 package kjhf.falconpunch;
 
-import java.io.IOException;
-import org.bukkit.plugin.java.*;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import java.io.File;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class FalconPunch extends JavaPlugin {
     
@@ -34,15 +30,15 @@ public class FalconPunch extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        loadConfigs();
-        this.getServer().getPluginManager().registerEvents(new fpPlayerListener(this), this);
+        this.loadConfigs();
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         this.getLogger().info("Version " + this.getDescription().getVersion() + " is enabled!");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if ((command.getName().equalsIgnoreCase("fp")) || (command.getName().equalsIgnoreCase("falconpunch"))) {
-            loadConfigs();
+            this.loadConfigs();
             sender.sendMessage("[FalconPunch] Version " + this.getDescription().getVersion() + " reloaded.");
             return true;
         } else {
@@ -52,21 +48,21 @@ public class FalconPunch extends JavaPlugin {
         
     /** Load up the FalconPunch Config. */
     private void loadConfigs () {
-        File configFile=new File(this.getDataFolder(),"config.yml");
+        final File configFile=new File(this.getDataFolder(),"config.yml");
         if(!configFile.exists()){
             this.saveDefaultConfig();
         }
-        FileConfiguration config = this.getConfig();
+        final FileConfiguration config = this.getConfig();
 
-        AllowPVP = config.getBoolean("Settings.AllowPVPFalconPunch", true);
-        OnlyPVP = config.getBoolean("Settings.OnlyPVPFalconPunch", false);
-        NoImmunity = config.getBoolean("Settings.NoImmunity", false);
-        UseContinuousSystem = config.getBoolean("Criticals.UseContinuousSystem", true);
-        CriticalsChance = config.getInt("Criticals.CriticalsChance", 1);
-        BurnChance = config.getInt("Burns.BurnChance", 1);
-        FailChance = config.getInt("Fails.FailChance", 1);
-        FailNothingChance = config.getInt("Fails.AfterFailDoNothingChance", 34);
-        FailFireChance = config.getInt("Fails.AfterFailDoFireChance", 33);
-        FailLightningChance = config.getInt("Fails.AfterFailDoLightningChance", 33);
+        this.AllowPVP = config.getBoolean("Settings.AllowPVPFalconPunch", true);
+        this.OnlyPVP = config.getBoolean("Settings.OnlyPVPFalconPunch", false);
+        this.NoImmunity = config.getBoolean("Settings.NoImmunity", false);
+        this.UseContinuousSystem = config.getBoolean("Criticals.UseContinuousSystem", true);
+        this.CriticalsChance = config.getInt("Criticals.CriticalsChance", 1);
+        this.BurnChance = config.getInt("Burns.BurnChance", 1);
+        this.FailChance = config.getInt("Fails.FailChance", 1);
+        this.FailNothingChance = config.getInt("Fails.AfterFailDoNothingChance", 34);
+        this.FailFireChance = config.getInt("Fails.AfterFailDoFireChance", 33);
+        this.FailLightningChance = config.getInt("Fails.AfterFailDoLightningChance", 33);
     }
 }
