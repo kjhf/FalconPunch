@@ -51,6 +51,7 @@ public class FalconPunch extends JavaPlugin {
         if(!configFile.exists()){
             this.saveDefaultConfig();
         }
+        this.reloadConfig();
         final FileConfiguration config = this.getConfig();
 
         this.AllowPVP = config.getBoolean("Settings.AllowPVPFalconPunch", true);
