@@ -9,19 +9,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FalconPunch extends JavaPlugin {
     
-    boolean AllowPVP = true;
-    boolean OnlyPVP = false;
-    boolean NoImmunity = false;
+    public boolean AllowPVP = true;
+    public boolean OnlyPVP = false;
+    public boolean NoImmunity = false;
     
-    boolean UseContinuousSystem = true;
+    public boolean UseContinuousSystem = true;
     
-    int CriticalsChance = 1;
-    int BurnChance = 1;
+    public int CriticalsChance = 1;
+    public int BurnChance = 1;
     
-    int FailChance = 1;
-    int FailNothingChance = 1;
-    int FailFireChance = 1;
-    int FailLightningChance = 1;
+    public int FailChance = 1;
+    public int FailNothingChance = 1;
+    public int FailFireChance = 1;
+    public int FailLightningChance = 1;
 
     @Override
     public void onDisable() {
@@ -37,16 +37,15 @@ public class FalconPunch extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if ((command.getName().equalsIgnoreCase("fp")) || (command.getName().equalsIgnoreCase("falconpunch"))) {
+        if (sender.hasPermission("falconpunch.reload")) {
             this.loadConfigs();
             sender.sendMessage("[FalconPunch] Version " + this.getDescription().getVersion() + " reloaded.");
-            return true;
         } else {
-            return false;
+            sender.sendMessage("[FalconPunch] You don't have access to this command");
         }
+        return true;
     }
         
-    /** Load up the FalconPunch Config. */
     private void loadConfigs () {
         final File configFile=new File(this.getDataFolder(),"config.yml");
         if(!configFile.exists()){

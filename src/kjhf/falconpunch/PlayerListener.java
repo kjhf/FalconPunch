@@ -153,84 +153,82 @@ public class PlayerListener implements Listener {
         }
         targetEntity.setVelocity(velocity);
 
-        String message = ChatColor.DARK_AQUA + "FALCON... PAUNCH! ";
+        final StringBuilder message=new StringBuilder();
+        message.append( ChatColor.DARK_AQUA + "FALCON... PAUNCH! ");
         if (!this.plugin.UseContinuousSystem) {
             if (burncrit) {
                 if (crit == 4) {
-                    message += "[" + ChatColor.RED + "Burn " + ChatColor.DARK_AQUA + "+" + ChatColor.RED + " Critical Hit! " + ChatColor.DARK_AQUA + "]";
+                    message.append( "[" + ChatColor.RED + "Burn " + ChatColor.DARK_AQUA + "+" + ChatColor.RED + " Critical Hit! " + ChatColor.DARK_AQUA + "]");
                 } else {
-                    message += "[" + ChatColor.RED + "Burn Hit!" + ChatColor.DARK_AQUA + "]";
+                    message.append( "[" + ChatColor.RED + "Burn Hit!" + ChatColor.DARK_AQUA + "]");
                 }
             } else {
                 if (crit == 4) {
-                    message += "[" + ChatColor.RED + "Critical Hit!" + ChatColor.DARK_AQUA + "]";
+                    message.append( "[" + ChatColor.RED + "Critical Hit!" + ChatColor.DARK_AQUA + "]");
                 }
-                //else {
-                //  message = ChatColor.DARK_AQUA + "FALCON... PAUNCH!";
-                //}
             }
         } else {            
-            message += "[";
+            message.append( "[");
             
             if (crit > 5.75) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.WHITE + "||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.WHITE + "||");
             } else if (crit > 5.5) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.WHITE + "|" + ChatColor.BLACK + "|"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.WHITE + "|" + ChatColor.BLACK + "|"); 
             } else if (crit > 5.25) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.BLACK + "||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||||" + ChatColor.BLACK + "||"); 
             } else if (crit > 5.0) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|||||" + ChatColor.BLACK + "|||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|||||" + ChatColor.BLACK + "|||"); 
             } else if (crit > 4.75) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||" + ChatColor.BLACK + "||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||||" + ChatColor.BLACK + "||||"); 
             } else if (crit > 4.5) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|||" + ChatColor.BLACK + "|||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|||" + ChatColor.BLACK + "|||||"); 
             } else if (crit > 4.25) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||" + ChatColor.BLACK + "||||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "||" + ChatColor.BLACK + "||||||"); 
             } else if (crit > 4.0) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|" + ChatColor.BLACK + "|||||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.GREEN + "|" + ChatColor.BLACK + "|||||||"); 
             } else if (crit > 3.75) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.BLACK + "||||||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||||" + ChatColor.BLACK + "||||||||"); 
             } else if (crit > 3.5) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|||||" + ChatColor.BLACK + "|||||||||"; 
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|||||" + ChatColor.BLACK + "|||||||||"); 
             } else if (crit > 3.25) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||" + ChatColor.BLACK + "||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||||" + ChatColor.BLACK + "||||||||||");
             } else if (crit > 3.0) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|||" + ChatColor.BLACK + "|||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|||" + ChatColor.BLACK + "|||||||||||");
             } else if (crit > 2.75) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||" + ChatColor.BLACK + "||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "||" + ChatColor.BLACK + "||||||||||||");
             } else if (crit > 2.5) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|" + ChatColor.BLACK + "|||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.YELLOW + "|" + ChatColor.BLACK + "|||||||||||||");
             } else if (crit > 2.25) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.BLACK + "||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||||" + ChatColor.BLACK + "||||||||||||||");
             } else if (crit > 2.0) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "|||||" + ChatColor.BLACK + "|||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "|||||" + ChatColor.BLACK + "|||||||||||||||");
             } else if (crit > 1.75) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||||" + ChatColor.BLACK + "||||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||||" + ChatColor.BLACK + "||||||||||||||||");
             } else if (crit > 1.5) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "|||" + ChatColor.BLACK + "|||||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "|||" + ChatColor.BLACK + "|||||||||||||||||");
             } else if (crit > 1.25) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "||" + ChatColor.BLACK + "||||||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "||" + ChatColor.BLACK + "||||||||||||||||||");
             } else if (crit > 1.0) {
-                message += ChatColor.RED + "||||||" + ChatColor.GOLD + "|" + ChatColor.BLACK + "|||||||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.GOLD + "|" + ChatColor.BLACK + "|||||||||||||||||||");
             } else if (crit > 0.8) {
-                message += ChatColor.RED + "||||||" + ChatColor.BLACK + "||||||||||||||||||||";
+                message.append( ChatColor.RED + "||||||" + ChatColor.BLACK + "||||||||||||||||||||");
             } else if (crit > 0.6) {
-                message += ChatColor.RED + "|||||" + ChatColor.BLACK + "|||||||||||||||||||||";
+                message.append( ChatColor.RED + "|||||" + ChatColor.BLACK + "|||||||||||||||||||||");
             } else if (crit > 0.4) {
-                message += ChatColor.RED + "||||" + ChatColor.BLACK + "||||||||||||||||||||||";
+                message.append( ChatColor.RED + "||||" + ChatColor.BLACK + "||||||||||||||||||||||");
             } else if (crit > 0.3) {
-                message += ChatColor.RED + "|||" + ChatColor.BLACK + "|||||||||||||||||||||||";
+                message.append( ChatColor.RED + "|||" + ChatColor.BLACK + "|||||||||||||||||||||||");
             } else if (crit > 0.2) {
-                message += ChatColor.RED + "||" + ChatColor.BLACK + "||||||||||||||||||||||||";
+                message.append( ChatColor.RED + "||" + ChatColor.BLACK + "||||||||||||||||||||||||");
             } else {
-                message += ChatColor.RED + "|" + ChatColor.BLACK + "|||||||||||||||||||||||||";
+                message.append( ChatColor.RED + "|" + ChatColor.BLACK + "|||||||||||||||||||||||||");
             }
-            message += ChatColor.DARK_AQUA + "]";
+            message.append( ChatColor.DARK_AQUA + "]");
             
             if (burncrit) {
-                message += " [" + ChatColor.RED + "Burn!" + ChatColor.DARK_AQUA + "] ";
+                message.append( " [" + ChatColor.RED + "Burn!" + ChatColor.DARK_AQUA + "] ");
             }
         }
-        player.sendMessage(message);
+        player.sendMessage(message.toString());
     }
 }
