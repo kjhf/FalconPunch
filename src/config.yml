@@ -1,0 +1,32 @@
+#   Falcon Punch!
+#
+# AllowPVPFalconPunch - Enables/disables PVP Falcon Punch. Does not affect immune permission.
+# OnlyPVPFalconPunch - Enables/disables PVP ONLY Falcon Punching (i.e. FalconPunches won't work on Entities other than Players).
+#
+# NoImmunity - Turn off the immune system completely
+#
+# UseContinuousSystem - Use the system which has a force of Falcon Punch, rather than just a crit or not. (False reverts to old crit system)
+# CriticalsChance - If the old system is enabled, this sets the chance of a critical hit [0-100]. Clearly, 0 disables all crits.
+#
+# BurnChance - Set the chance of a burn hit [0-100]. Clearly, 0 disables this.
+#
+# FailChance - Set the chance of the punch failing [0-100]. Clearly, 0 disables this.
+#
+# -- These values do not have to add up to 100, but it makes it much easier to see the probabilities ! --
+# AfterFailDoNothingChance - If a hit fails, set the chance that the punch fails with no side-effects [0-100]
+# AfterFailDoFireChance - If a hit fails, set the chance that the puncher will be set on fire [0-100]
+# AfterFailDoLightningChance - If a hit fails, set the chance that the puncher will be set on fire [0-100]
+Burns:
+    BurnChance: 1
+Settings:
+    AllowPVPFalconPunch: true
+    NoImmunity: false
+    OnlyPVPFalconPunch: false
+Fails:
+    AfterFailDoFireChance: 33
+    AfterFailDoNothingChance: 34
+    AfterFailDoLightningChance: 33
+    FailChance: 1
+Criticals:
+    CriticalsChance: 1
+    UseContinuousSystem: true
