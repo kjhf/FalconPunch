@@ -18,7 +18,6 @@ public class FalconPunch extends JavaPlugin {
     static final Logger logger = Logger.getLogger("FalconPunch");
     static String Version;
     
-    final fpPlayerListener playerListener = new fpPlayerListener();    
     static boolean permissionBukkit = false;
     
     static final String dataFolder = "plugins/FalconPunch/";
@@ -50,7 +49,7 @@ public class FalconPunch extends JavaPlugin {
         loadConfigs();
         
         PluginManager pm = getServer().getPluginManager();   
-        pm.registerEvent(Event.Type.PLAYER_INTERACT_ENTITY, playerListener, Event.Priority.Monitor, this);
+        pm.registerEvents(new fpPlayerListener(), this);
             
         logger.info("[FalconPunch] Version " + Version + " is enabled!");
     }

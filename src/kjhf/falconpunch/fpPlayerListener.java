@@ -8,12 +8,13 @@ import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.Wolf;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.util.Vector;
 
-public class fpPlayerListener extends PlayerListener {
-    @Override
+public class fpPlayerListener implements Listener {
+    @EventHandler
     public void onPlayerInteractEntity (PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         if (player.getItemInHand().getType() != Material.AIR) {
