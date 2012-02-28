@@ -61,7 +61,7 @@ public class fpPlayerListener implements Listener {
 
         if (targetEntity instanceof Player) {
             Player targetplayer = (targetEntity instanceof Player) ? (Player) targetEntity : null;
-            if (player.hasPermission("falconpunch.immune") && !FalconPunch.NoImmunity) {
+            if (targetplayer!=null && targetplayer.hasPermission("falconpunch.immune") && !FalconPunch.NoImmunity) {
                 player.sendMessage(ChatColor.GOLD + "[FalconPunch] " + ChatColor.RED + "That person cannot be Falcon Punched. They have immune permission.");
                 return;
             }
