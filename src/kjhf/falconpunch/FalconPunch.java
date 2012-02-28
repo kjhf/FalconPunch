@@ -4,8 +4,6 @@ import java.io.IOException;
 import org.bukkit.plugin.java.*;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 import java.io.File;
 import java.util.logging.Logger;
 import org.bukkit.command.Command;
@@ -21,7 +19,6 @@ public class FalconPunch extends JavaPlugin {
     static String Version;
     
     final fpPlayerListener playerListener = new fpPlayerListener();    
-    static PermissionHandler permissionHandler;
     static boolean permissionBukkit = false;
     
     static final String dataFolder = "plugins/FalconPunch/";
@@ -52,9 +49,6 @@ public class FalconPunch extends JavaPlugin {
         Version = this.getDescription().getVersion();
         loadConfigs();
         
-        // Permissions
-        setupPermissions();
-        
         PluginManager pm = getServer().getPluginManager();   
         pm.registerEvent(Event.Type.PLAYER_INTERACT_ENTITY, playerListener, Event.Priority.Monitor, this);
             
@@ -73,57 +67,6 @@ public class FalconPunch extends JavaPlugin {
         }
     }
         
-    private void setupPermissions() { 
-        if (permissionHandler != null) { 
-            return; 
-        }        
-        Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-        if (permissionsPlugin == null) {
-            Plugin permissionsbukkitPlugin = this.getServer().getPluginManager().getPlugin("PermissionsBukkit");
-            if (permissionsbukkitPlugin == null) {
-                logger.info("[FalconPunch] Permission system not detected. Attempting to use server permissions and defaulting to OP...");    
-                return;
-            } else {
-            logger.info("[FalconPunch] Found PermissionsBukkit sucessfully!");
-            permissionBukkit = true;
-            }
-        } else {
-            permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-            logger.info("[FalconPunch] Found "+((Permissions)permissionsPlugin).getDescription().getFullName()+" sucessfully!");
-        }
-    }
-
-    /**  
-     * Test whether a player can use this falconpunch permission. 
-     * It checks BukkitPermissions, PEX, and finally OPS.
-     * @param player The player issuing the command
-     * @param permission The permission to check against that are associated with the command. "falconpunch." is included.
-     * @return True if sender has permission, else false. 
-     */
-    public static boolean hasPerm (Player player, String permission) { // Convenience. Checks both Permissions and PermissionsBukkit
-        if (permissionBukkit) {
-            // Server is using BukkitPermissions
-            
-            Permission perm;
-            if (fp.getServer().getPluginManager().getPermission("falconpunch."+permission) != null) {
-                perm = fp.getServer().getPluginManager().getPermission("falconpunch."+permission);
-            } else {
-                return player.isOp(); // The permission was not found. Return whether player should automatically get permission for being opped.
-            }
-            if (player.hasPermission(perm)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (permissionHandler == null) {
-                return player.isOp(); // Permissions/PEX isn't installed either. Revert to OPS.
-            } else {
-                return permissionHandler.has(player, "falconpunch."+permission);
-            }
-        }
-    }
-    
     /** Load up the FalconPunch Config. */
     private void loadConfigs () {
         Configuration config = null;

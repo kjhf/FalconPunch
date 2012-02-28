@@ -20,7 +20,7 @@ public class fpPlayerListener extends PlayerListener {
             return;
         }
 
-        if (!FalconPunch.hasPerm(player, "punch")) {
+        if (!player.hasPermission("falconpunch.punch")) {
             return;
         }
 
@@ -60,7 +60,7 @@ public class fpPlayerListener extends PlayerListener {
 
         if (targetEntity instanceof Player) {
             Player targetplayer = (targetEntity instanceof Player) ? (Player) targetEntity : null;
-            if (FalconPunch.hasPerm(targetplayer, "immune") && !FalconPunch.NoImmunity) {
+            if (player.hasPermission("falconpunch.immune") && !FalconPunch.NoImmunity) {
                 player.sendMessage(ChatColor.GOLD + "[FalconPunch] " + ChatColor.RED + "That person cannot be Falcon Punched. They have immune permission.");
                 targetplayer.sendMessage(ChatColor.GOLD + "[FalconPunch] " + ChatColor.RED + player.getName() + " tried to Falcon Punch you!");
                 return;
