@@ -25,7 +25,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        if (!player.hasPermission("plugin.punch")) {
+        if (!player.hasPermission("falconpunch.punch")) {
             return;
         }
 
@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
 
         if (targetEntity instanceof Player) {
             final Player targetplayer = (targetEntity instanceof Player) ? (Player) targetEntity : null;
-            if ((targetplayer!=null) && targetplayer.hasPermission("plugin.immune") && !this.plugin.NoImmunity) {
+            if ((targetplayer!=null) && targetplayer.hasPermission("falconpunch.immune") && !this.plugin.NoImmunity) {
                 player.sendMessage(ChatColor.GOLD + "[FalconPunch] " + ChatColor.RED + "That person cannot be Falcon Punched. They have immune permission.");
                 return;
             }
